@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ConnCollSoftwareEngineering">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ConnCollSoftwareEngineering.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
