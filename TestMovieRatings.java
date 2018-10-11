@@ -55,6 +55,15 @@ public class TestMovieRatings{
    }
    return movies;
 }
+  public static findAndDisplayRaterPersons(personID){
+      public final X x; 
+  public final Y y; 
+  public Tuple(X x, Y y) { 
+    this.x = x; 
+    this.y = y; 
+      personID.findNumberOfRatings();
+  }
+      
   public void testLoadMovies(){
     String str = "Datafiles/Rated-Movies-for-Testing.csv";
     //System.out.println("this works");
