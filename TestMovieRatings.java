@@ -12,11 +12,12 @@ import java.util.HashSet;
 
 public class TestMovieRatings{
   public ArrayList<MovieInformation> loadMovieData(String filename){
+    //creating a list of movie info type to store all movies
     ArrayList <MovieInformation> movieData = new ArrayList<MovieInformation>();
     System.out.println("this works");
     MyFileReader fr = new MyFileReader(filename);
     CSVParser parser = fr.accessCSVParser();
-    System.out.println("this works");
+    // goes through each movies in the files
     for (CSVRecord record : parser){
       String id = record.get("IMDB");
       String title = record.get("MovieTitle");
@@ -27,6 +28,7 @@ public class TestMovieRatings{
       MovieInformation movie = new MovieInformation(id, title, year, genre, length, director);
       movieData.add(movie);
     }
+    // returns the arrayList
     return movieData;
   }
   public ArrayList<RaterPerson> loadRaterPersonData(String filename){
@@ -34,10 +36,11 @@ public class TestMovieRatings{
     MyFileReader fr = new MyFileReader(filename);
     CSVParser parser = fr.accessCSVParser();
     for (CSVRecord record: parser){
-
+      //getting relevant info
        String raterPersonID = record.get("RaterPersonID");
        String movieID = record.get("MovieID");
        Double movieRating = Double.parseDouble(record.get("MovieRating"));
+       // assumes id increases incrementally
        if (Integer.parseInt(raterPersonID) > raterList.size()){
          RaterPerson newRater = new RaterPerson(raterPersonID);
          newRater.addRating(movieID, movieRating);
@@ -55,14 +58,16 @@ public class TestMovieRatings{
     return raterList;
  }
  public String findAndDisplayRaterPersons(ArrayList<RaterPerson> raterList, String id, String movieID){
-   String output = "Number of rating for id " + id;
+   String output = "Number of rating for person id " + id;
+   // assumes the raters id were assigned in sequential order
    int index = Integer.parseInt(id);
    RaterPerson rater = raterList.get(index - 1);
+   //gives out the number of movies rated by this person
    output = output + " "+  String.valueOf(rater.findNumberOfRatings());
 
    ArrayList<RaterPerson> highestRaters = new ArrayList();
    int maxMoviesRated =0;
-
+   // creates an array list of movies with the higest number if raters seen so far
    for (RaterPerson raters: raterList){
      if (raters.findNumberOfRatings()>= maxMoviesRated){
        highestRaters.add(raters);
@@ -70,6 +75,8 @@ public class TestMovieRatings{
 
      }
    }
+   // this is the end of the highestRaters arry. this will have the rater with most rated Movies
+   // there may be rater below this index who have rated the same number of movies. So we traverse through this list
    int index1 = highestRaters.size() - 1;
    output = output + "\nHighest raters";
    while (highestRaters.get(index1).findNumberOfRatings() == maxMoviesRated){
@@ -78,7 +85,7 @@ public class TestMovieRatings{
      index1--;
    }
    int count = 0;
-
+   // returns the number of raters who have rated for this movie
    for (RaterPerson rater2: raterList){
      if (rater2.hasRatingValue(movieID))
        count++;
@@ -91,6 +98,7 @@ public class TestMovieRatings{
  }
  public String findAndDisplayMovies(ArrayList<MovieInformation> movieList){
    String movies = "Movies more than 135 min: ";
+   //displaying movies with length > 135
    for (MovieInformation movie : movieList){
      int movieLength = movie.getMovieLength();
      //System.out.println(movieLength);
@@ -99,6 +107,7 @@ public class TestMovieRatings{
      }
    }
    movies = movies+ "\nDrama movies: ";
+   //displaying movies with drama genre
    for (MovieInformation movie : movieList){
      String movieGenre = movie.getMovieGenre();
      //System.out.println(movieLength);
@@ -106,6 +115,7 @@ public class TestMovieRatings{
        movies = movies+ movie.getMovieTitle() + ", ";
      }
    }
+   //creating a dictionary of directors using the map interface implemented by hashMaps
    Map<String, Integer>  director_dict = new HashMap<String, Integer> ();
    int maxValue = 0;
    for (MovieInformation movie : movieList){
@@ -113,22 +123,27 @@ public class TestMovieRatings{
        int value =  director_dict.get(movie.getMovieDirector()) + 1;
        if (value > maxValue)
           maxValue = value;
+      //System.out.println("director number"+ Integer.toString(value));
        director_dict.put(movie.getMovieDirector(), value);
      }
      else{
-       maxValue = 1; 
+       if (maxValue == 0)
+        maxValue = 1;
        director_dict.put(movie.getMovieDirector(), 1);
     }
   }
     System.out.println("size " + director_dict.size() + " " + maxValue);
     //Set<String> directors = new HashSet<String>();
     String directors = "";
+    // using a for loop to go through the directors who directed the most movies
+    // these are directors who have have maxValue number of movies directed
     for (Object entry : director_dict.keySet()){
       if (director_dict.get(entry).equals(maxValue))
         //directors.add(entry.getKey());
-        directors = directors + ", " + entry;
+        directors = directors + entry +"\n";
     }
-    System.out.println(directors);
+    //System.out.println(directors);\
+    movies = movies + "\nDirectors with most movies\n"+ directors;
    return movies;
 }
   public void testLoadMovies(){
