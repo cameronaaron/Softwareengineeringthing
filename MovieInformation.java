@@ -7,7 +7,7 @@ public class MovieInformation{
   private String movieCountry;
   private String posterUrl;
   private int movieLength;
-
+  private double averageRating;
   public MovieInformation(String id, String title, String year, String genre, String length, String director){
     movieID = id;
     movieTitle = title;
@@ -27,6 +27,7 @@ public class MovieInformation{
     movieCountry = country;
     posterUrl = url;
     movieLength = Integer.parseInt(length);
+
 
   }
   public String getMovieID(){
@@ -52,6 +53,9 @@ public class MovieInformation{
   }
   public int getMovieLength(){
     return movieLength;
+  }
+  public void setAverageRating(double rating){
+    averageRating = rating;
   }
   public String toString(){
     String info = "";
