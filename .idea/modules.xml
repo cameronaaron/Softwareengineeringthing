@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Projecteng.iml" filepath="$PROJECT_DIR$/.idea/Projecteng.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.ateam.finalproj.common.iml" filepath="$PROJECT_DIR$/.idea/modules/org.ateam.finalproj.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.ateam.finalproj.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/org.ateam.finalproj.common.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/org.ateam.finalproj.common.test.iml" filepath="$PROJECT_DIR$/.idea/modules/org.ateam.finalproj.common.test.iml" />
     </modules>
   </component>
 </project>
